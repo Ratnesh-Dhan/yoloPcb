@@ -1,0 +1,9 @@
+venv/
+venv_3_12/
+python3.8/
+ann/
+img/
+augmented_ann/
+augmented_img/
+sqlite3.def
+sqlite3.dll
