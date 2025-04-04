@@ -1,0 +1,33 @@
+import cv2
+import albumentations as A
+import numpy as np
+
+# Your transformation pipeline
+transform = A.Compose([
+    A.SmallestMaxSize(max_size=400, p=1.0),
+    A.RandomCrop(width=int(400 * 0.8), height=int(400 * 0.8)),
+    A.HorizontalFlip(p=0.5),
+    A.Rotate(limit=30, p=0.5),
+    A.RandomBrightnessContrast(p=0.2)
+], bbox_params=A.BboxParams(format='yolo', label_fields=['class_labels']))
+
+# Load original image
+image = cv2.imread("your_image.jpg")
+image = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
+
+# Your YOLO bboxes and labels
+bboxes = [[0.5, 0.5, 0.4, 0.4]]  # example bbox in YOLO format
+class_labels = ['class_name']    # same length as bboxes
+
+# Generate 5 augmented versions
+for i in range(5):
+    augmented = transform(image=image, bboxes=bboxes, class_labels=class_labels)
+    aug_image = augmented['image']
+    aug_bboxes = augmented['bboxes']
+    
+    # Save image (optional)
+    aug_image_bgr = cv2.cvtColor(aug_image, cv2.COLOR_RGB2BGR)
+    cv2.imwrite(f"augmented_{i+1}.jpg", aug_image_bgr)
+
+    # Print or save bboxes
+    print(f"Image {i+1} bboxes:", aug_bboxes)
