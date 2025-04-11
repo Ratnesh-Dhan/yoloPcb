@@ -22,6 +22,16 @@ try :
         A.RandomBrightnessContrast(p=0.2)],
         bbox_params=A.BboxParams(format='yolo'))
     
+    """
+        transform = A.Compose([
+        A.SmallestMaxSize(max_size=400, p=1.0),  # Resize smaller dimension to 400px while maintaining aspect ratio
+        A.RandomCrop(width=int(400*0.8), height=int(400*0.8)),  # Crop 80% of the resized image
+        A.RandomCrop(width=450, height=450),
+        A.HorizontalFlip(p=0.5),
+        A.RandomBrightnessContrast(p=0.2)],
+        bbox_params=A.BboxParams(format='yolo'))
+    """
+    
     def transformer(transform, image, bboxes):
         transformed = transform(image=image, bboxes=bboxes)
         transformed_image = transformed['image']

@@ -74,19 +74,19 @@ class YOLOWriter:
                 with open(classes_file, 'r') as f:
                     existing_classes = set(f.read().strip('\n').split('\n'))
 
-            out_class_file = open(classes_file, 'a')  # Open in append mode
+            # out_class_file = open(classes_file, 'a')  # Open in append mode
         else:
             out_file = codecs.open(target_file, 'w', encoding=ENCODE_METHOD)
             classes_file = os.path.join(os.path.dirname(os.path.abspath(target_file)), "classes.txt")
             # existing_classes = set()
-            existing_classes = []
+            # existing_classes = []
             if os.path.exists(classes_file):
                 with open(classes_file, 'r') as f:
                     existing_classes = (f.read().strip('\n').split('\n'))
                     # // This is test
                     print("Exsiting classes file : ", existing_classes)
 
-            out_class_file = open(classes_file, 'a')  # Open in append mode
+        out_class_file = open(classes_file, 'a')  # Open in append mode
         
         # for box in self.box_list:
         for box in self.box_list:
